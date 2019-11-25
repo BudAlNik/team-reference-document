@@ -11,7 +11,7 @@ chart_template = open("chart-template.tex").read()
 
 def get_mited_format(ext):
 	if ext == "cpp":
-		return "[mathescape, breaklines, tabsize=4]{c++}"
+		return "[mathescape, breaklines, tabsize=4, frame=lines, linenos=true]{c++}"
 	elif ext == "py":
 		return "[mathescape, breaklines, tabsize=4]{python}"
 
@@ -106,7 +106,7 @@ def run_test(path, file):
 
 		if cache_inp.readline().strip() == hash_file and cache_inp.readline().strip() == hash_test:
 			print("Relevant cache", file=sys.stderr)
-			add_plaintext("\\checkmark Tests passed")
+			add_plaintext("\\textcolor{violet}{\\checkmark Tests passed}")
 			handle_test_outp(cache_inp.read())
 			return
 		
@@ -123,7 +123,7 @@ def run_test(path, file):
 			print("Tests failed", file=sys.stderr)
 			add_error("Tests failed")
 		else:
-			add_plaintext("\\checkmark Tests passed")
+			add_plaintext("\\textcolor{violet}{\\checkmark Tests passed}")
 			test_outp = proc.stdout.read().decode("utf-8")
 			print("Writing cache")
 			cache_outp = open(cache, "w")

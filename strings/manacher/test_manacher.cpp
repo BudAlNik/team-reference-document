@@ -38,7 +38,7 @@ vector<int> slow_find_palindromes(string s) {
 int main() {
 	cerr << setprecision(5) << fixed;
 	cout << setprecision(5) << fixed;
-	
+
 	for (int i = 0; i < 1000; ++i) {
 		int l = rnd(1, 10);
 		string s = "";
