@@ -7,8 +7,6 @@ content = ""
 errors_cnt = 0
 warnings_cnt = 0
 
-chart_template = open("chart-template.tex").read()
-
 def get_mited_format(ext):
 	if ext == "cpp":
 		return "[mathescape, breaklines, tabsize=4, frame=lines, linenos=true]{c++}"
@@ -34,6 +32,7 @@ def add_plaintext(text, color=None):
 
 
 def add_minted(format, path):
+	print(format, path, file=sys.stderr)
 	global content
 	content += "\\inputminted" + format + "{" + path + "}\n"
 
@@ -73,69 +72,7 @@ def parse_csv(s):
 	return table
 
 
-def add_chart(table):
-	global content
-	cur_chart = chart_template
-	cur_chart = cur_chart.replace("$xlabel", table[0][0])
-	cur_chart = cur_chart.replace("$ylabel", table[0][1])
-	coords = ""
-	for i in range(1, len(table)):
-		coords += "(%s, %s)\n" % (table[i][0], table[i][1])
-
-	cur_chart = cur_chart.replace("$coordinates", coords)
-
-	content += "\\begin{center}"
-	content += cur_chart
-	content += "\\end{center}"
-
-
-def handle_test_outp(test_outp):
-	add_chart(parse_csv(test_outp))
-
-
-def run_test(path, file):
-	print("Testing " + os.path.join(path, file), file=sys.stderr)
-	test = os.path.join(path, "test_" + file)
-	cache = os.path.join(path, "test_" + file + ".cache")
-	file = os.path.join(path, file)
-	hash_file = hashlib.md5(open(file).read().encode("utf-8")).hexdigest()
-	hash_test = hashlib.md5(open(test).read().encode("utf-8")).hexdigest()
-	if os.path.isfile(cache):
-		print("Checking cache", file=sys.stderr)
-		cache_inp = open(cache)
-
-		if cache_inp.readline().strip() == hash_file and cache_inp.readline().strip() == hash_test:
-			print("Relevant cache", file=sys.stderr)
-			add_plaintext("\\textcolor{violet}{\\checkmark Tests passed}")
-			handle_test_outp(cache_inp.read())
-			return
-		
-		print("Outdated cache, removing", file=sys.stderr)
-		os.remove(cache)
-
-	if subprocess.call("g++ -Wall -Wextra -Wshadow -fno-stack-limit -std=c++11 -O2 -o tmp %s" % test, shell=True):
-		print("Compilation error", file=sys.stderr)
-		add_error("Compilation error while compiling test")
-	else:
-		print("Compiled", file=sys.stderr)
-		proc = subprocess.Popen("./tmp", shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-		if proc.wait():
-			print("Tests failed", file=sys.stderr)
-			add_error("Tests failed")
-		else:
-			add_plaintext("\\textcolor{violet}{\\checkmark Tests passed}")
-			test_outp = proc.stdout.read().decode("utf-8")
-			print("Writing cache")
-			cache_outp = open(cache, "w")
-			print(hash_file, file=cache_outp)
-			print(hash_test, file=cache_outp)
-			print(test_outp, file=cache_outp)
-			handle_test_outp(test_outp)
-			
-
-verification_flag = True
-
-def dfs(path, depth):
+def walk_directories(path, depth):
 	if depth > 0:
 		name = "\\textbf{No name} (\\texttt{%s})" % (escape_latex(os.path.basename(path)))
 		if os.path.isfile(os.path.join(path, "name")):
@@ -149,7 +86,7 @@ def dfs(path, depth):
 	files = []
 
 	for file in os.listdir(path):
-		if file == "info.tex" or file == "name" or file.startswith("test") or file.startswith("_") or file.startswith(".") or file.endswith(".cache"):
+		if file == "info.tex" or file == "name" or file.startswith("."):
 			continue
 
 		if os.path.isdir(os.path.join(path, file)):
@@ -171,38 +108,30 @@ def dfs(path, depth):
 			else:
 				format = get_mited_format(file[0].split(".")[-1])
 				add_minted(format, os.path.join(path, file[0]))
-				if verification_flag:
-					if os.path.isfile(os.path.join(path, "test_" + file[0])):
-						run_test(path, file[0])
-					else:
-						add_warning("No tests")
-					
 
 	for dir in dirs:
-		dfs(os.path.join(path, dir), depth + 1)
+		walk_directories(os.path.join(path, dir), depth + 1)
 
-dfs(".", 0)
+walk_directories(".", 0)
 
 template = open("template.tex").read()
 
-if not verification_flag:
-	verification = "\\textcolor{orange}{Without verification}"
+verification = ""
+if errors_cnt == 0:
+	verification = "No errors"
+elif errors_cnt == 1:
+	verification = "\\textcolor{red}{1 error}"
 else:
-	if errors_cnt == 0:
-		verification = "No errors"
-	elif errors_cnt == 1:
-		verification = "\\textcolor{red}{1 error}"
-	else:
-		verification = "\\textcolor{red}{%d errors}" % errors_cnt
+	verification = "\\textcolor{red}{%d errors}" % errors_cnt
 
-	verification += ", "
+verification += ", "
 
-	if warnings_cnt == 0:
-		verification += "No warnings"
-	elif warnings_cnt == 1:
-		verification += "\\textcolor{orange}{1 warning}"
-	else:
-		verification += "\\textcolor{orange}{%d warnings}" % warnings_cnt
+if warnings_cnt == 0:
+	verification += "No warnings"
+elif warnings_cnt == 1:
+	verification += "\\textcolor{orange}{1 warning}"
+else:
+	verification += "\\textcolor{orange}{%d warnings}" % warnings_cnt
 
 
 print(template.replace("% Content", content).replace("% Verification", verification), file=open("reference-document.tex", "w"))
