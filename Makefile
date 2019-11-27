@@ -6,4 +6,5 @@ all:
 	rm _minted-* -r
 
 clean:
-	rm reference-document.pdf
+	rm -f *.aux *.log *.toc
+	rm _minted-* -r

@@ -1,28 +1,38 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
-\usepackage{minted}
-\usepackage[a4paper, top=1in, left=0.5in, right=0.5in, bottom=1in]{geometry}
+% \usepackage[russian]{babel}
+\usepackage[a4paper, top=0.7in, left=0.5in, right=0.5in, bottom=0.6in, twocolumn]{geometry}
+\usepackage{lastpage}
 \usepackage{fancyhdr}
 \usepackage{tikz}
 \usepackage{pgfplots}
 \usepackage{amssymb}
+\usepackage{minted}
+\usepackage{pdfpages}
 
 \setcounter{secnumdepth}{5}
 \setcounter{tocdepth}{5}
 \pgfkeys{/pgf/number format/.cd,1000 sep={\,}}
 
 \pagestyle{fancy}
-\chead{\Large{Reference document, ITMO 1: Standard deviation}}
-\lhead{Generated \today \\
-% Verification
-}
-\rhead{ITMO University}
+\fancyhf{}
+\lhead{ITMO University 1: Standard deviation (Budin, Kirillov, Sayutin)}
+\rhead{Page \thepage\ of \pageref{LastPage}}
+\lfoot{Generated \today}
+
+\renewcommand{\footrulewidth}{0.4pt}
+\setlength{\columnseprule}{0.4pt}
 
 \begin{document}
+\onecolumn
 \tableofcontents
 
+\twocolumn
 \newpage
 
 % Content
+
+\onecolumn
+\includepdf[pages={1, 2}, pagecommand={\pagestyle{fancy}}]{integral-table}
 
 \end{document}

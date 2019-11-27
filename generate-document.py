@@ -9,9 +9,11 @@ warnings_cnt = 0
 
 def get_mited_format(ext):
 	if ext == "cpp":
-		return "[mathescape, breaklines, tabsize=4, frame=lines, linenos=true]{c++}"
+		return "[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\\ , tabcolor=lightgray]{c++}"
 	elif ext == "py":
-		return "[mathescape, breaklines, tabsize=4]{python}"
+		return "[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\\ , tabcolor=lightgray]{python}"
+	elif ext == "java":
+		return "[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\\ , tabcolor=lightgray]{java}"
 
 
 section_names = ["section", "subsection", "subsubsection", "paragraph"]
@@ -109,6 +111,7 @@ def walk_directories(path, depth):
 				format = get_mited_format(file[0].split(".")[-1])
 				add_minted(format, os.path.join(path, file[0]))
 
+	dirs.sort()
 	for dir in dirs:
 		walk_directories(os.path.join(path, dir), depth + 1)
 
