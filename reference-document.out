@@ -1,0 +1,51 @@
+\BOOKMARK [1][-]{section.1}{Some usefull stuff}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Fast I/O}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Java template}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{Pragmas}{section.1}% 4
+\BOOKMARK [1][-]{section.2}{Data structures}{}% 5
+\BOOKMARK [2][-]{subsection.2.1}{Hash table}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.2}{Ordered set and bitset}{section.2}% 7
+\BOOKMARK [1][-]{section.3}{Geometry}{}% 8
+\BOOKMARK [2][-]{subsection.3.1}{Common tangents of two circles}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.2}{Convex hull 3D in O\(n \0402\)}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.3}{Dynamic convex hull trick}{section.3}% 11
+\BOOKMARK [2][-]{subsection.3.4}{Halfplanes intersection}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.5}{Minimal covering disk}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.6}{Polygon tangent}{section.3}% 14
+\BOOKMARK [2][-]{subsection.3.7}{Rotate 3D}{section.3}% 15
+\BOOKMARK [2][-]{subsection.3.8}{Sphere distance}{section.3}% 16
+\BOOKMARK [2][-]{subsection.3.9}{Draw svg pictures}{section.3}% 17
+\BOOKMARK [1][-]{section.4}{Graphs}{}% 18
+\BOOKMARK [2][-]{subsection.4.1}{2-Chinese algorithm}{section.4}% 19
+\BOOKMARK [2][-]{subsection.4.2}{Dominator tree}{section.4}% 20
+\BOOKMARK [2][-]{subsection.4.3}{General matching}{section.4}% 21
+\BOOKMARK [2][-]{subsection.4.4}{Gomory-Hu tree}{section.4}% 22
+\BOOKMARK [2][-]{subsection.4.5}{Hungarian algorithm}{section.4}% 23
+\BOOKMARK [2][-]{subsection.4.6}{Link-Cut Tree}{section.4}% 24
+\BOOKMARK [2][-]{subsection.4.7}{Push-Relabel}{section.4}% 25
+\BOOKMARK [2][-]{subsection.4.8}{Smith algorithm \(Game on cyclic graph\)}{section.4}% 26
+\BOOKMARK [2][-]{subsection.4.9}{Stoer-Vagner algorithm \(Global min-cut\)}{section.4}% 27
+\BOOKMARK [1][-]{section.5}{Matroids}{}% 28
+\BOOKMARK [2][-]{subsection.5.1}{Matroids intersection}{section.5}% 29
+\BOOKMARK [1][-]{section.6}{Numeric}{}% 30
+\BOOKMARK [2][-]{subsection.6.1}{Berlekamp-Massey Algorithm}{section.6}% 31
+\BOOKMARK [2][-]{subsection.6.2}{Burnside's lemma}{section.6}% 32
+\BOOKMARK [2][-]{subsection.6.3}{Chinese remainder theorem}{section.6}% 33
+\BOOKMARK [2][-]{subsection.6.4}{AND/OR/XOR convolution}{section.6}% 34
+\BOOKMARK [2][-]{subsection.6.5}{Miller\205Rabin primality test}{section.6}% 35
+\BOOKMARK [2][-]{subsection.6.6}{Taking by modullo \(Inline assembler\)}{section.6}% 36
+\BOOKMARK [2][-]{subsection.6.7}{First solution of \(p + step x\) -5mumod5mu-mod < l}{section.6}% 37
+\BOOKMARK [2][-]{subsection.6.8}{Multiplication by modulo in long double}{section.6}% 38
+\BOOKMARK [2][-]{subsection.6.9}{Numerical integration}{section.6}% 39
+\BOOKMARK [2][-]{subsection.6.10}{Pollard's rho algorithm}{section.6}% 40
+\BOOKMARK [2][-]{subsection.6.11}{Polynom division and inversion}{section.6}% 41
+\BOOKMARK [2][-]{subsection.6.12}{Polynom roots}{section.6}% 42
+\BOOKMARK [2][-]{subsection.6.13}{Simplex method}{section.6}% 43
+\BOOKMARK [2][-]{subsection.6.14}{Some integer sequences}{section.6}% 44
+\BOOKMARK [1][-]{section.7}{Strings}{}% 45
+\BOOKMARK [2][-]{subsection.7.1}{Duval algorithm \(Lyndon factorization\)}{section.7}% 46
+\BOOKMARK [2][-]{subsection.7.2}{Palindromic tree}{section.7}% 47
+\BOOKMARK [2][-]{subsection.7.3}{Manacher's algorithm}{section.7}% 48
+\BOOKMARK [2][-]{subsection.7.4}{Suffix array + LCP}{section.7}% 49
+\BOOKMARK [2][-]{subsection.7.5}{Suffix automaton}{section.7}% 50
+\BOOKMARK [2][-]{subsection.7.6}{Suffix tree}{section.7}% 51
