@@ -19,7 +19,7 @@
 
 \pagestyle{fancy}
 \fancyhf{}
-\lhead{ITMO University 1: Standard deviation (Budin, Kirillov, Sayutin)}
+\lhead{ITMO University 1: Insert your name (Budin, Korobkov, Naumov)}
 \rhead{Page \thepage\ of \pageref{LastPage}}
 \lfoot{Generated \today}
 
@@ -27,20 +27,24 @@
 \setlength{\columnseprule}{0.4pt}
 
 \begin{document}
-\onecolumn
+% \onecolumn
 \tableofcontents
 
-\twocolumn
-\newpage
+% \twocolumn
+% \newpage
 
-\section{Some useful things}
-\inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{java}{./basic/Template.java}
-\inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./basic/io.cpp}
-\inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./basic/opt.cpp}
-\inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./basic/useful.cpp}
+\section{Some usefull stuff}
+\subsection{Fast I/O}
+\inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./basic/fast-io/io.cpp}
+\subsection{Java template}
+\inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{java}{./basic/java-template/Template.java}
+\subsection{Pragmas}
+\inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./basic/pragmas/opt.cpp}
 \section{Data structures}
 \subsection{Hash table}
 \inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./data-structures/hash-table/hash-table.cpp}
+\subsection{Ordered set and bitset}
+\inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./data-structures/std/std.cpp}
 \section{Geometry}
 \subsection{Common tangents of two circles}
 \inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./geometry/common-tangents/common-tangents.cpp}
@@ -48,8 +52,12 @@
 \inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./geometry/convex-hull-3d/convex-hull-3d.cpp}
 \subsection{Dynamic convex hull trick}
 \inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./geometry/convex-hull-trick/convex-hull-trick.cpp}
+\subsection{Halfplanes intersection}
+\inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./geometry/halfplanes-intersection/halfplanes-intersection.cpp}
 \subsection{Minimal covering disk}
 \inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./geometry/min-disk/min-disk.cpp}
+\subsection{Polygon tangent}
+\inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./geometry/polygon-tangent/polygon-tangent.cpp}
 \subsection{Draw svg pictures}
 \inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./geometry/svg-draw/svg-draw.cpp}
 \section{Graphs}
@@ -75,15 +83,27 @@
 \subsection{Matroids intersection}
 \inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./matroids/matroids-intersection/matroids-intersection.cpp}
 \section{Numeric}
-\inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./numeric/mod-ineq-first-sol.cpp}
 \subsection{Berlekamp-Massey Algorithm}
 \inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./numeric/berlekamp/berlekamp.cpp}
+\subsection{Burnside's lemma}
+$$|X/G| = \frac{1}{|G|}\sum\limits_{g \in G}|St(g)|$$
+
+$St(g)$ denote the set of elements in $X$ that are fixed by $g$, i.e. $St(g) = \{x \in X | gx = x\}$.
 \subsection{Chinese remainder theorem}
 \inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./numeric/chinese-remainder-theorem/chinese-remainder-theorem.cpp}
+\subsection{Convolutions}
+\subsubsection{AND convolution}
+\inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./numeric/convolutions/and-conv/and-conv.cpp}
+\subsubsection{OR convolution}
+\inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./numeric/convolutions/or-conv/or-conv.cpp}
+\subsubsection{XOR convolution}
+\inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./numeric/convolutions/xor-conv/xor-conv.cpp}
 \subsection{Miller–Rabin primality test}
 \inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./numeric/miller-rabin/miller-rabin.cpp}
 \subsection{Taking by modullo (Inline assembler)}
 \inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./numeric/mod-asm/mod-asm.cpp}
+\subsection{First solution of $(p + step \cdot x) \bmod mod < l$}
+\inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./numeric/mod-ineq-first-sol/mod-ineq-first-sol.cpp}
 \subsection{Multiplication by modulo in \texttt{long double}}
 \inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./numeric/mult-by-mod/mult-by-mod.cpp}
 \subsection{Numerical integration}

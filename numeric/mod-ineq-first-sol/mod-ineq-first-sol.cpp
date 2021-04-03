@@ -1,4 +1,3 @@
-// finds first solution of (p + step * x) % mod < l
 // returns value of (p + step * x), i.e. number of steps x = (ans - p) / step (mod mod)
 int smart_calc(int mod, int step, int l, int p) {
 	if (p < l) {
