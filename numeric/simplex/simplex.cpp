@@ -1,67 +1,153 @@
-vector<double> simplex(vector<vector<double>> a) {
-	int n = a.size() - 1;
-	int m = a[0].size() - 1;
-	vector<int> left(n + 1), up(m + 1);
-	iota(up.begin(), up.end(), 0);
-	iota(left.begin(), left.end(), m);
-	auto pivot = [&](int x, int y) {
-		swap(left[x], up[y]);
-		double k = a[x][y];
-		a[x][y] = 1;
-		vector<int> vct;
-		for (int j = 0; j <= m; j++) {
-			a[x][j] /= k;
-			if (!eq(a[x][j], 0))
-				vct.push_back(j);
-		}
-		for (int i = 0; i <= n; i++) {
-			if (eq(a[i][y], 0) || i == x)
-				continue;
-			k = a[i][y];
-			a[i][y] = 0;
-			for (int j : vct)
-				a[i][j] -= k * a[x][j];
-		}
-	};
-	while (1) {
-		int x = -1;
-		for (int i = 1; i <= n; i++)
-			if (ls(a[i][0], 0) && (x == -1 || a[i][0] < a[x][0]))
-				x = i;
-		if (x == -1)
-			break;
-		int y = -1;
-		for (int j = 1; j <= m; j++)
-			if (ls(a[x][j], 0) && (y == -1 || a[x][j] < a[x][y]))
-				y = j;
-		if (y == -1)
-			assert(0); // infeasible
-		pivot(x, y);
-	}
-	while (1) {
-		int y = -1;
-		for (int j = 1; j <= m; j++)
-			if (ls(0, a[0][j]) && (y == -1 || a[0][j] > a[0][y]))
-				y = j;
-		if (y == -1)
-			break;
-		int x = -1;
-		for (int i = 1; i <= n; i++)
-			if (ls(0, a[i][y]) && (x == -1 || a[i][0] / a[i][y] < a[x][0] / a[x][y]))
-				x = i;
-		if (x == -1)
-			assert(0); // unbounded
-		pivot(x, y);
-	}
-	vector<double> ans(m + 1);
-	for (int i = 1; i <= n; i++)
-		if (left[i] <= m)
-			ans[left[i]] = a[i][0];
-	ans[0] = -a[0][0];
-	return ans;
-}
-// j=1..m: x[j]>=0
-// i=1..n: sum(j=1..m) A[i][j]*x[j] <= A[i][0]
-// max sum(j=1..m) A[0][j]*x[j]
-// res[0] is answer
-// res[1..m] is certificate
+struct simplex_t {
+    vector<vector<double>> mat;
+    int EQ, VARS, p_row;
+
+    vector<int> column;
+    
+    void row_subtract(int what, int from, double x) {
+        for (int i = 0; i <= VARS; ++i)
+            mat[from][i] -= mat[what][i] * x;
+    }
+
+    void row_scale(int what, double x) {
+        for (int i = 0; i <= VARS; ++i)
+            mat[what][i] *= x;
+    }
+
+    void pivot(int var, int eq) {
+        row_scale(eq, 1. / mat[eq][var]);
+        
+        for (int p = 0; p <= EQ; ++p)
+            if (p != eq)
+                row_subtract(eq, p, mat[p][var]);
+
+        column[eq] = var;
+    }
+    
+    void iterate() {
+        while (true) {
+            int j = 0;
+            for (; j != VARS and mat[EQ][j] < eps; ++j) {}
+
+            if (j == VARS)
+                break;
+
+            double lim = 1e100;
+            int arg_min = -1;
+        
+            for (int p = 0; p != EQ; ++p) {
+                if (mat[p][j] < eps)
+                    continue;
+
+                double newlim = mat[p][VARS] / mat[p][j];
+                if (newlim < lim)
+                    lim = newlim, arg_min = p;
+            }
+
+            if (arg_min == -1)
+                throw "unbounded";
+
+            pivot(j, arg_min);
+        }
+    }
+    
+    simplex_t(const vector<vector<double>>& mat_): mat(mat_) {
+        for (int i = 0; i < SZ(mat); ++i) // fictuous variable
+            mat[i].insert(mat[i].begin() + SZ(mat[i]) - 1, double(0));
+        
+        EQ = SZ(mat), VARS = SZ(mat[0]) - 1;
+        column.resize(EQ, -1);
+        p_row = 0;
+    
+        for (int i = 0; i < VARS; ++i) {
+            int p;
+            for (p = p_row; p < EQ and abs(mat[p][i]) < eps; ++p) {}
+
+            if (p == EQ)
+                continue;
+
+            swap(mat[p], mat[p_row]);
+            column[p_row] = i;
+            row_scale(p_row, 1. / mat[p_row][i]);
+
+            for (p = 0; p != EQ; ++p)
+                if (p != p_row)
+                    row_subtract(p_row, p, mat[p][i]);
+        
+            p_row += 1;
+        }
+
+        for (int p = p_row; p < EQ; ++p)
+            if (abs(mat[p][VARS]) > eps)
+                throw "unsolvable (bad equalities)";
+    
+        if (p_row) {
+            int minr = 0;
+            for (int i = 0; i < p_row; ++i)
+                if (mat[i][VARS] < mat[minr][VARS])
+                    minr = i;
+    
+            if (mat[minr][VARS] < -eps) {
+                mat.push_back(vector<double>(VARS + 1));
+                
+                mat[EQ][VARS - 1] = -1;
+                for (int i = 0; i != p_row; ++i)
+                    mat[i][VARS - 1] = -1;
+            
+                pivot(VARS - 1, minr);
+                iterate();
+
+                if (abs(mat[EQ][VARS]) > eps)
+                    throw "unsolvable";
+
+                for (int c = 0; c != EQ; ++c)
+                    if (column[c] == VARS - 1) {
+                        int p = 0;
+                        while (p != VARS - 1 and abs(mat[c][p]) < eps)
+                            ++p;
+                
+                        assert(p != VARS - 1);
+                        pivot(p, c);
+                        break;
+                    }
+
+                for (int p = 0; p != EQ; ++p)
+                    mat[p][VARS - 1] = 0;
+                
+                mat.pop_back();
+            }
+        }
+    }
+    
+    double solve(vector<double> coeff, vector<double>& pans) {
+        auto mat_orig = mat;
+        auto col_orig = column;
+        
+        coeff.resize(VARS + 1);
+        mat.push_back(coeff);
+
+        for (int i = 0; i != p_row; ++i)
+            row_subtract(i, EQ, mat[EQ][column[i]]);
+
+        iterate();
+        
+        auto ans = -mat[EQ][VARS];
+        if (not pans.empty()) {
+            for (int i = 0; i < EQ; ++i) {
+                assert(column[i] < VARS);
+                pans[column[i]] = mat[i][VARS];
+            }
+        }
+        
+        mat = std::move(mat_orig);
+        column = std::move(col_orig);
+        return ans;
+    }
+
+    double solve_min(vector<double> coeff, vector<double>& pans) {
+        for (double& elem: coeff)
+            elem = -elem;
+
+        return -solve(coeff, pans);
+    }
+};
