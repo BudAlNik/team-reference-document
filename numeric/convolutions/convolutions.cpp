@@ -8,9 +8,10 @@ void FST(vector<int> &a, bool inv) {
 		for (int i = 0; i < n; i += 2 * step) {
 			for (j = i; j < i + step; ++j) {
 				int &u = a[j], &v = a[j + step];
-				tie(u, v) = inv ? pii(v - u, u) : pii(v, u + v); // AND
-				            inv ? pii(v, u - v) : pii(u + v, u); // OR
-				            pii(u + v, u - v);                   // XOR
+				tie(u, v) = 
+					inv ? pii(v - u, u) : pii(v, u + v); // AND
+					inv ? pii(v, u - v) : pii(u + v, u); // OR
+					pii(u + v, u - v); // XOR
 			}
 		}
 	}

@@ -1,10 +1,12 @@
-all:
+all: generate-document build-pdf clean
+
+build-pdf:
+	pdflatex -shell-escape reference-document.tex
+	pdflatex -shell-escape reference-document.tex
+
+generate-document:
 	python3 generate-document.py
-	pdflatex -shell-escape reference-document.tex
-	pdflatex -shell-escape reference-document.tex
-	rm *.aux *.log *.toc
-	rm _minted-* -r
 
 clean:
-	rm -f *.aux *.log *.toc
-	rm _minted-* -r
+	rm *.aux *.log *.toc *.out
+	rm -r _minted-*
