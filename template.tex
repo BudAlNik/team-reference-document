@@ -21,7 +21,7 @@
 
 \pagestyle{fancy}
 \fancyhf{}
-\lhead{ITMO University 1: Standard deviation (Budin, Kirillov, Sayutin)}
+\lhead{ITMO University 1: Insert your name (Budin, Korobkov, Naumov)}
 \rhead{Page \thepage\ of \pageref{LastPage}}
 \lfoot{Generated \today}
 
@@ -40,18 +40,18 @@
 \onecolumn
 \includepdf[pages={1, 2}, pagecommand={\pagestyle{fancy}}]{integral-table}
 
-\begin{tikzpicture} [hexa/.style= {shape=regular polygon,
-                                   regular polygon sides=6,
-                                   minimum size=0.7cm, draw=gray,
-                                   inner sep=0, anchor=south,
-                                   fill=white}]
+% \begin{tikzpicture} [hexa/.style= {shape=regular polygon,
+%                                    regular polygon sides=6,
+%                                    minimum size=0.7cm, draw=gray,
+%                                    inner sep=0, anchor=south,
+%                                    fill=white}]
 
-\foreach \j in {0,...,32}{% 
-    \ifodd\j 
-         \foreach \i in {0,...,42}{\node[hexa] (h\j;\i) at ({(\j/2+\j/4) * 0.7},{(\i+1/2)*sin(60) * 0.7}) {};}        
-    \else
-         \foreach \i in {0,...,42}{\node[hexa] (h\j;\i) at ({(\j/2+\j/4) * 0.7},{\i*sin(60) * 0.7}) {};}
-    \fi}
-\end{tikzpicture}
+% \foreach \j in {0,...,32}{% 
+%     \ifodd\j 
+%          \foreach \i in {0,...,42}{\node[hexa] (h\j;\i) at ({(\j/2+\j/4) * 0.7},{(\i+1/2)*sin(60) * 0.7}) {};}        
+%     \else
+%          \foreach \i in {0,...,42}{\node[hexa] (h\j;\i) at ({(\j/2+\j/4) * 0.7},{\i*sin(60) * 0.7}) {};}
+%     \fi}
+% \end{tikzpicture}
 
 \end{document}
