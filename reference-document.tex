@@ -12,12 +12,16 @@
 \usepackage{booktabs}
 \usepackage{hyperref}
 \usepackage{amsmath}
+\usepackage{titlesec}
 
 \usetikzlibrary{shapes}
 
 \setcounter{secnumdepth}{5}
 \setcounter{tocdepth}{5}
 \pgfkeys{/pgf/number format/.cd,1000 sep={\,}}
+
+\titlespacing*{\section}{0pt}{0ex}{0ex}
+\titlespacing*{\subsection}{0pt}{0ex}{0ex}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -35,7 +39,7 @@
 % \twocolumn
 \newpage
 
-\section{Some usefull stuff}
+\section{Some useful stuff}
 \subsection{Fast I/O}
 \inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./basic/fast-io/io.cpp}
 \subsection{Java template}
@@ -120,16 +124,34 @@ $St(g)$ denote the set of elements in $X$ that are fixed by $g$, i.e. $St(g) = \
 \inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./numeric/chinese-remainder-theorem/chinese-remainder-theorem.cpp}
 \subsection{AND/OR/XOR convolution}
 \inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./numeric/convolutions/convolutions.cpp}
+\subsection{Counting size of the maximum general matching}
+In order to find a size of the maximum matching:
+\begin{enumerate}
+	\item Build Tutte matrix. ($x_{ij}$ are random numbers)
+	$$A_{ij} = 
+	\begin{cases} 
+	x_{ij} & \text{if edge $(i, j)$ exists and $i < j$} \\
+	-x_{ij} & \text{if edge $(i, j)$ exists and $i > j$} \\
+	0 & otherwise
+	\end{cases}$$
+	\item The size of the maximum matching equals to the size of the maximum independent set divided by $2$.
+	\item $(A^{-1})_{ji} \neq 0$ iff edge $(i, j)$ belongs to some complete matching.
+\end{enumerate}
+\subsection{Counting number of spanning trees}
+In order to count number of spanning trees:
+\begin{enumerate}
+	\item Build the Laplacian matrix. That is difference between the degree matrix and the adjacency matrix.
+	\item Delete any row and any column of this matrix.
+	\item Calculate it's determinant.
+\end{enumerate}
 \subsection{Some formulas}
-$$\sum_{i = 1}^{n} i^2 = \frac{n(n + 1)(2n + 1)}{6}$$
-
-$$\sum_{i = 1}^{n} i^3 = \frac{n^2(n + 1)^2}{4}$$
-
-$$\sum_{i = 1}^{n} i^4 = \frac{n(n + 1)(2n + 1)(3n^2 + 3n - 1)}{30}$$
-
-$$\sum_{k = 0}^{n} k \binom{n}{k} = n 2^{n - 1}$$
-
-$$\sum_{k = 0}^{n} \binom{n}{k}^2 = \binom{2n}{n}$$
+\begin{itemize}
+\item $\sum\limits_{i = 1}^{n} i^2 = \frac{n(n + 1)(2n + 1)}{6}$
+\item $\sum\limits_{i = 1}^{n} i^3 = \frac{n^2(n + 1)^2}{4}$
+\item $\sum\limits_{i = 1}^{n} i^4 = \frac{n(n + 1)(2n + 1)(3n^2 + 3n - 1)}{30}$
+\item $\sum\limits_{k = 0}^{n} k \binom{n}{k} = n 2^{n - 1}$
+\item $\sum\limits_{k = 0}^{n} \binom{n}{k}^2 = \binom{2n}{n}$
+\end{itemize}
 \subsection{Miller–Rabin primality test}
 \inputminted[mathescape, breaklines, breakafter=(, tabsize=2, frame=lines, showtabs, tab=|\ , tabcolor=lightgray]{c++}{./numeric/miller-rabin/miller-rabin.cpp}
 \subsection{Taking by modullo (Inline assembler)}

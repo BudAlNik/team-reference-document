@@ -1,0 +1,12 @@
+In order to find a size of the maximum matching:
+\begin{enumerate}
+	\item Build Tutte matrix. ($x_{ij}$ are random numbers)
+	$$A_{ij} = 
+	\begin{cases} 
+	x_{ij} & \text{if edge $(i, j)$ exists and $i < j$} \\
+	-x_{ij} & \text{if edge $(i, j)$ exists and $i > j$} \\
+	0 & otherwise
+	\end{cases}$$
+	\item The size of the maximum matching equals to the size of the maximum independent set divided by $2$.
+	\item $(A^{-1})_{ji} \neq 0$ iff edge $(i, j)$ belongs to some complete matching.
+\end{enumerate}
